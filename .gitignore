@@ -68,6 +68,7 @@ Testing/
 .cache/
 
 .vs/
+.vscode/
 build/
 cmake-build-*/
 out/
