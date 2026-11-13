@@ -12,6 +12,7 @@ add_library(evermore_core STATIC
     src/data/SampleDefinition.cpp
     src/combat/CombatUnit.cpp
     src/combat/StatCalculator.cpp
+    src/combat/CombatState.cpp
 )
 
 target_include_directories(evermore_core
