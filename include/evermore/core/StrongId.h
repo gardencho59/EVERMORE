@@ -44,5 +44,9 @@ namespace std
 }
 
 struct UnitDefinitionTag {};
+struct CombatUnitTag {};
+struct TeamTag {};
 
 using UnitDefinitionId = StrongId<UnitDefinitionTag>;
+using CombatUnitId = StrongId<CombatUnitTag>;
+using TeamId = StrongId<TeamTag>;

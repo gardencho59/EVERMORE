@@ -10,6 +10,8 @@ add_library(evermore_core STATIC
     src/core/Random.cpp
     src/data/GameDatabase.cpp
     src/data/SampleDefinition.cpp
+    src/combat/CombatUnit.cpp
+    src/combat/StatCalculator.cpp
 )
 
 target_include_directories(evermore_core
