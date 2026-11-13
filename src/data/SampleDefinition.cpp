@@ -17,7 +17,7 @@ bool LoadSampleDefinitions(GameDatabase& database)
     UnitDefinition sampleKnight(
         sampleId, 
         sampleName, 
-        UnitStats{sampleStats}
+        UnitStats{15, sampleStats}
     );
 
     return database.RegisterUnitDefinition(sampleKnight);
