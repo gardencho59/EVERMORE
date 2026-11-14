@@ -5,9 +5,7 @@ GameDatabase::GameDatabase()
     // load static data
     // validate data
     // validata between definition
-
 }
-
 
 const UnitDefinition& GameDatabase::GetUnitDefinition(UnitDefinitionId id) const
 {

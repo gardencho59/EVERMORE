@@ -3,10 +3,7 @@
 
 #include <evermore/core/Random.h>
 
-Random::Random(std::uint32_t seed)
-    : engine_(seed) 
-{
-}
+Random::Random(std::uint32_t seed) : engine_(seed) {}
 
 int Random::NextInt(int min, int max)
 {

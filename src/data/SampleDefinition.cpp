@@ -1,7 +1,7 @@
 
-#include <evermore/data/SampleDefinition.h>
 #include <evermore/data/Definition.h>
 #include <evermore/data/GameDatabase.h>
+#include <evermore/data/SampleDefinition.h>
 
 bool LoadSampleDefinitions(GameDatabase& database)
 {
@@ -14,11 +14,7 @@ bool LoadSampleDefinitions(GameDatabase& database)
     sampleStats.Set(StatType::Technique, 8);
     sampleStats.Set(StatType::Agility, 10);
 
-    UnitDefinition sampleKnight(
-        sampleId, 
-        sampleName, 
-        UnitStats{15, sampleStats}
-    );
+    UnitDefinition sampleKnight(sampleId, sampleName, UnitStats{15, sampleStats});
 
     return database.RegisterUnitDefinition(sampleKnight);
 }

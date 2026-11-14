@@ -42,7 +42,7 @@ void TestEqualBounds()
 void TestInvalidRange()
 {
     Random random(12345);
-    
+
     bool caught = false;
 
     try

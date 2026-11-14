@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdint>
-#include <cstddef>
 #include <array>
+#include <cstddef>
+#include <cstdint>
 
 enum class StatType : std::uint8_t
 {
@@ -14,8 +14,7 @@ enum class StatType : std::uint8_t
     Count
 };
 
-constexpr std::size_t kStatCount =
-    static_cast<std::size_t>(StatType::Count);
+constexpr std::size_t kStatCount = static_cast<std::size_t>(StatType::Count);
 
 struct StatBlock
 {

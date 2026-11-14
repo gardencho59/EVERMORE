@@ -1,8 +1,8 @@
 #pragma once
 
+#include <evermore/combat/CombatStats.h>
 #include <evermore/core/StrongId.h>
 #include <evermore/data/UnitStats.h>
-#include <evermore/combat/CombatStats.h>
 
 struct UnitResources
 {
