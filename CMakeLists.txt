@@ -13,6 +13,7 @@ add_library(evermore_core STATIC
     src/combat/CombatUnit.cpp
     src/combat/StatCalculator.cpp
     src/combat/CombatState.cpp
+    src/combat/TurnScheduler.cpp
 )
 
 target_include_directories(evermore_core

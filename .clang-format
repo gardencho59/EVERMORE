@@ -3,12 +3,12 @@ BasedOnStyle: Microsoft
 BreakBeforeBraces: Custom
 BraceWrapping:
   SplitEmptyRecord: false
+  BeforeLambdaBody: true
 
 AccessModifierOffset: -4
 
 ColumnLimit: 100
 AllowShortFunctionsOnASingleLine: Empty
-AllowShortRecordOnASingleLine: Empty
 
 BreakBeforeBinaryOperators: NonAssignment
 BinPackArguments: false
