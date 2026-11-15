@@ -24,10 +24,17 @@ void TurnScheduler::Initialize(std::span<const TurnScheduleEntry> entries)
             throw std::invalid_argument("Speed must be at least 1");
         }
 
+        const auto duplicate =
+            std::ranges::find(newEntries, entry.unitId, &TurnScheduleEntry::unitId);
+
+        if (duplicate != newEntries.end())
+        {
+            throw std::invalid_argument("Duplicate combat unit ID");
+        }
+
         auto& added = newEntries.emplace_back(entry);
 
         added.actionInterval = std::max(VirtualTime{1}, kRoundedScale / added.effectiveSpeed);
-
         added.nextActionTime = added.actionInterval;
     }
 
