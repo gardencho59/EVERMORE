@@ -8,12 +8,12 @@
 
 CombatUnit::CombatUnit(CombatUnitId unitId, TeamId teamId, UnitStats stats, UnitResources resources)
     : id_(unitId), team_(teamId), stats_(stats), resources_(resources)
-{   
+{
     if (!id_.IsValid())
     {
         throw std::invalid_argument("Combat Unit ID is not valid");
     }
-    
+
     if (!team_.IsValid())
     {
         throw std::invalid_argument("Team ID is not valid");
@@ -104,7 +104,7 @@ bool CombatUnit::IsIncapacitated() const noexcept
 {
     return GetHp() == 0;
 }
-   
+
 bool CombatUnit::CanAct() const noexcept
 {
     // extra effect after add debuff
@@ -116,11 +116,9 @@ int CombatUnit::ApplyHpDelta(int delta)
     int oldHp = GetHp();
 
     const std::int64_t requestedHp = static_cast<std::int64_t>(oldHp) + delta;
-    
-    const int newHp = static_cast<int>(
-        std::clamp<std::int64_t>(requestedHp, 0, GetMaxHp())
-    );
-    
+
+    const int newHp = static_cast<int>(std::clamp<std::int64_t>(requestedHp, 0, GetMaxHp()));
+
     resources_.currentHp = newHp;
 
     return newHp - oldHp;
@@ -129,13 +127,11 @@ int CombatUnit::ApplyHpDelta(int delta)
 int CombatUnit::ApplyApDelta(int delta)
 {
     int oldAp = GetAp();
-    
+
     const std::int64_t requestedAp = static_cast<std::int64_t>(oldAp) + delta;
-    
-    const int newAp = static_cast<int>(
-        std::clamp<std::int64_t>(requestedAp, 0, GetMaxAp())
-    );
-    
+
+    const int newAp = static_cast<int>(std::clamp<std::int64_t>(requestedAp, 0, GetMaxAp()));
+
     resources_.currentAp = newAp;
 
     return newAp - oldAp;
@@ -154,13 +150,12 @@ int CombatUnit::GetShield() const noexcept
 int CombatUnit::ApplyShieldDelta(int delta)
 {
     int oldShield = GetShield();
-    
+
     const std::int64_t requestedShield = static_cast<std::int64_t>(oldShield) + delta;
-    
+
     const int newShield = static_cast<int>(
-        std::clamp<std::int64_t>(requestedShield, 0, std::numeric_limits<int>::max())
-    );
-    
+        std::clamp<std::int64_t>(requestedShield, 0, std::numeric_limits<int>::max()));
+
     resources_.currentShield = newShield;
 
     return newShield - oldShield;

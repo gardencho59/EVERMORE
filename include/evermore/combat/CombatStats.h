@@ -3,7 +3,7 @@
 struct CombatStats
 {
     int maxHp = 0;
-    
+
     double physicalAttack = 0.0;
     double magicAttack = 0.0;
     double physicalDefense = 0.0;

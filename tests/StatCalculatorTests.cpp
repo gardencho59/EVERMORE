@@ -1,6 +1,6 @@
 #include <cassert>
-#include <stdexcept>
 #include <cmath>
+#include <stdexcept>
 
 #include <evermore/combat/StatCalculator.h>
 
@@ -45,7 +45,7 @@ void TestInvalidLevelsRejected()
         {
             GetLevelBaseHP(level);
         }
-        catch(const std::out_of_range&)
+        catch (const std::out_of_range&)
         {
             caught = true;
         }
@@ -56,7 +56,7 @@ void TestInvalidLevelsRejected()
 void TestZeroStats()
 {
     UnitStats stats(1, StatBlock{});
-    CombatStats combatStats = CalculateCombatStats(stats); 
+    CombatStats combatStats = CalculateCombatStats(stats);
 
     assert(combatStats.maxHp == 55);
     assert(combatStats.physicalAttack == 5.0);
@@ -145,13 +145,11 @@ void TestAccuracyAndEvasionScores()
 
 void TestNegativeStatsRejected()
 {
-    const StatType statTypes[] = {
-        StatType::Strength,
-        StatType::Intelligence,
-        StatType::Vitality,
-        StatType::Technique,
-        StatType::Agility
-    };
+    const StatType statTypes[] = {StatType::Strength,
+                                  StatType::Intelligence,
+                                  StatType::Vitality,
+                                  StatType::Technique,
+                                  StatType::Agility};
 
     for (const StatType type : statTypes)
     {

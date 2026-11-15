@@ -1,0 +1,17 @@
+BasedOnStyle: Microsoft
+
+BreakBeforeBraces: Custom
+BraceWrapping:
+  SplitEmptyRecord: false
+  BeforeLambdaBody: true
+
+AccessModifierOffset: -4
+
+ColumnLimit: 100
+AllowShortFunctionsOnASingleLine: Empty
+
+BreakBeforeBinaryOperators: NonAssignment
+BinPackArguments: false
+BinPackParameters: false
+
+PointerAlignment: Left

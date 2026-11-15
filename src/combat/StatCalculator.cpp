@@ -26,10 +26,9 @@ constexpr std::array<LevelHpEntry, 11> kLevelHpTable{{
 
 double GetLevelBaseHP(int level)
 {
-    if (level < kLevelHpTable.front().level ||
-        level > kLevelHpTable.back().level)
+    if (level < kLevelHpTable.front().level || level > kLevelHpTable.back().level)
     {
-        throw std::out_of_range("Unsupported level");        
+        throw std::out_of_range("Unsupported level");
     }
 
     for (std::size_t i = 1; i < kLevelHpTable.size(); ++i)
@@ -39,7 +38,8 @@ double GetLevelBaseHP(int level)
 
         if (level <= upper.level)
         {
-            const double ratio = static_cast<double>(level - lower.level) / (upper.level - lower.level);
+            const double ratio =
+                static_cast<double>(level - lower.level) / (upper.level - lower.level);
 
             return lower.baseHp + (upper.baseHp - lower.baseHp) * ratio;
         }
@@ -64,15 +64,15 @@ CombatStats CalculateCombatStats(const UnitStats& stats)
     }
 
     const double levelBaseHp = GetLevelBaseHP(stats.level);
-    combatStats.maxHp = static_cast<int>(std::round(
-        levelBaseHp * (1 + 2 * vitality / (35 + vitality))
-    ));
+    combatStats.maxHp =
+        static_cast<int>(std::round(levelBaseHp * (1 + 2 * vitality / (35 + vitality))));
 
     combatStats.physicalAttack = 5 + (100 * strength / (25 + strength));
     combatStats.magicAttack = 5 + (100 * intelligence / (25 + intelligence));
 
     combatStats.physicalDefense = 150 * (strength + 2 * vitality) / (35 + strength + 2 * vitality);
-    combatStats.magicDefense = 150 * (intelligence + 2 * vitality) / (35 + intelligence + 2 * vitality);
+    combatStats.magicDefense =
+        150 * (intelligence + 2 * vitality) / (35 + intelligence + 2 * vitality);
 
     combatStats.speed = 30 + (220 * agility * agility) / (144 + agility * agility) + 3 * agility;
 

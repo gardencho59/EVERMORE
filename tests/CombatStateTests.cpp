@@ -4,15 +4,9 @@
 
 #include <evermore/combat/CombatState.h>
 
-CombatUnit MakeUnit(CombatUnitId::value_type id = 10,
-                    TeamId::value_type team = 1)
+CombatUnit MakeUnit(CombatUnitId::value_type id = 10, TeamId::value_type team = 1)
 {
-    return CombatUnit{
-        CombatUnitId{id},
-        TeamId{team},
-        UnitStats{},
-        UnitResources{}
-    };
+    return CombatUnit{CombatUnitId{id}, TeamId{team}, UnitStats{}, UnitResources{}};
 }
 
 void TestEmptyState()
@@ -33,19 +27,13 @@ void TestInitialPhase()
 void TestSingleUnitConstruction()
 {
     CombatState state{std::vector<CombatUnit>{MakeUnit()}};
-    
+
     assert(state.GetAllUnits().size() == 1);
 }
 
 void TestAllUnitsPreserveInputOrder()
 {
-    CombatState state{
-        std::vector<CombatUnit>{
-            MakeUnit(30),
-            MakeUnit(10),
-            MakeUnit(70)
-        }
-    };
+    CombatState state{std::vector<CombatUnit>{MakeUnit(30), MakeUnit(10), MakeUnit(70)}};
 
     const auto units = state.GetAllUnits();
 
@@ -61,14 +49,9 @@ void TestDuplicateUnitIdsRejected()
 
     try
     {
-        CombatState{
-            std::vector<CombatUnit>{
-                MakeUnit(10),
-                MakeUnit(10, 2)
-            }
-        };   
+        CombatState{std::vector<CombatUnit>{MakeUnit(10), MakeUnit(10, 2)}};
     }
-    catch(const std::invalid_argument&)
+    catch (const std::invalid_argument&)
     {
         caught = true;
     }
@@ -78,9 +61,7 @@ void TestDuplicateUnitIdsRejected()
 
 void TestFindUnitById()
 {
-    CombatState state{std::vector<CombatUnit>{
-        MakeUnit(30), MakeUnit(10), MakeUnit(70)
-    }};
+    CombatState state{std::vector<CombatUnit>{MakeUnit(30), MakeUnit(10), MakeUnit(70)}};
 
     for (const CombatUnitId id : {CombatUnitId{30}, CombatUnitId{10}, CombatUnitId{70}})
     {
@@ -93,8 +74,7 @@ void TestFindUnitById()
 void TestFindUnitOnConstState()
 {
     const CombatState state{std::vector<CombatUnit>{MakeUnit(30, 2)}};
-    static_assert(std::is_same_v<
-        decltype(state.FindUnit(CombatUnitId{30})), const CombatUnit*>);
+    static_assert(std::is_same_v<decltype(state.FindUnit(CombatUnitId{30})), const CombatUnit*>);
 
     const CombatUnit* unit = state.FindUnit(CombatUnitId{30});
     assert(unit != nullptr);
@@ -157,9 +137,8 @@ void TestIncapacitatedUnitRemainsFindable()
 
 void TestGetUnitsByTeam()
 {
-    const CombatState state{std::vector<CombatUnit>{
-        MakeUnit(10, 1), MakeUnit(30, 2), MakeUnit(70, 1)
-    }};
+    const CombatState state{
+        std::vector<CombatUnit>{MakeUnit(10, 1), MakeUnit(30, 2), MakeUnit(70, 1)}};
 
     const auto allies = state.GetUnitsByTeam(TeamId{1});
     const auto enemies = state.GetUnitsByTeam(TeamId{2});
@@ -178,9 +157,7 @@ void TestUnknownTeamReturnsEmpty()
 
 void TestTeamQueryIncludesIncapacitatedUnits()
 {
-    CombatState state{std::vector<CombatUnit>{
-        MakeUnit(10, 1), MakeUnit(30, 2), MakeUnit(70, 1)
-    }};
+    CombatState state{std::vector<CombatUnit>{MakeUnit(10, 1), MakeUnit(30, 2), MakeUnit(70, 1)}};
     CombatUnit* unit = state.FindUnit(CombatUnitId{70});
     assert(unit != nullptr);
     const int change = unit->ApplyHpDelta(-1);
@@ -192,7 +169,6 @@ void TestTeamQueryIncludesIncapacitatedUnits()
     assert(allies[0] == CombatUnitId{10});
     assert(allies[1] == CombatUnitId{70});
 }
-
 
 int main()
 {

@@ -12,14 +12,10 @@ UnitStats MakeStats(int vitality = 9)
 }
 
 CombatUnit MakeUnit(UnitResources resources = {20, 1, 7},
-                    CombatUnitId id = CombatUnitId{10}, TeamId team = TeamId{1})
+                    CombatUnitId id = CombatUnitId{10},
+                    TeamId team = TeamId{1})
 {
-    return CombatUnit{
-        id,
-        team,
-        MakeStats(),
-        resources
-    };
+    return CombatUnit{id, team, MakeStats(), resources};
 }
 
 void TestDamageAndIndependence()
@@ -86,26 +82,22 @@ void TestExtremeDeltas()
 {
     auto unit = MakeUnit();
 
-    const int hpGain =
-        unit.ApplyHpDelta(std::numeric_limits<int>::max());
+    const int hpGain = unit.ApplyHpDelta(std::numeric_limits<int>::max());
 
     assert(unit.GetHp() == 78);
     assert(hpGain == 58);
 
-    const int hpLoss =
-        unit.ApplyHpDelta(std::numeric_limits<int>::min());
+    const int hpLoss = unit.ApplyHpDelta(std::numeric_limits<int>::min());
 
     assert(unit.GetHp() == 0);
     assert(hpLoss == -78);
 
-    const int apGain =
-        unit.ApplyApDelta(std::numeric_limits<int>::max());
+    const int apGain = unit.ApplyApDelta(std::numeric_limits<int>::max());
 
     assert(unit.GetAp() == 7);
     assert(apGain == 6);
 
-    const int apLoss =
-        unit.ApplyApDelta(std::numeric_limits<int>::min());
+    const int apLoss = unit.ApplyApDelta(std::numeric_limits<int>::min());
 
     assert(unit.GetAp() == 0);
     assert(apLoss == -7);
@@ -129,9 +121,7 @@ void TestNegativeHpRejected()
 
 void TestInvalidResourcesRejected()
 {
-    const UnitResources invalidValues[] = {
-        {79, 1, 7}, {20, -1, 7}, {20, 8, 7}, {20, 0, -1}
-    };
+    const UnitResources invalidValues[] = {{79, 1, 7}, {20, -1, 7}, {20, 8, 7}, {20, 0, -1}};
     for (const auto& resources : invalidValues)
     {
         bool caught = false;
@@ -157,9 +147,7 @@ void TestInvalidIdsRejected()
         try
         {
             const CombatUnit unit{
-                unitIds[index], teamIds[index],
-                MakeStats(), UnitResources{20, 1, 7}
-            };
+                unitIds[index], teamIds[index], MakeStats(), UnitResources{20, 1, 7}};
         }
         catch (const std::invalid_argument&)
         {
@@ -212,15 +200,11 @@ void TestRecoveryFromIncapacitation()
 
 void TestInitialStateGetters()
 {
-    const auto unit = MakeUnit(
-        UnitResources{30, 1, 3, 10}, 
-        CombatUnitId{20},
-        TeamId{2}
-    );
-    
+    const auto unit = MakeUnit(UnitResources{30, 1, 3, 10}, CombatUnitId{20}, TeamId{2});
+
     assert(unit.GetId().Value() == 20);
     assert(unit.GetTeam().Value() == 2);
-    
+
     assert(unit.GetHp() == 30);
     assert(unit.GetAp() == 1);
     assert(unit.GetMaxAp() == 3);
@@ -232,12 +216,7 @@ void TestCombatStatsIntegration()
     auto stats = MakeStats(0);
     stats.level = 10;
 
-    const CombatUnit unit{
-        CombatUnitId{10},
-        TeamId{1},
-        stats,
-        UnitResources{}
-    };
+    const CombatUnit unit{CombatUnitId{10}, TeamId{1}, stats, UnitResources{}};
 
     assert(unit.GetMaxHp() == 95);
 }
@@ -249,31 +228,21 @@ void TestInvalidStatsRejected()
     {
         auto stats = MakeStats(0);
         stats.level = 101;
-        
-        CombatUnit{
-            CombatUnitId{10},
-            TeamId{1},
-            stats,
-            UnitResources()
-        };
+
+        CombatUnit{CombatUnitId{10}, TeamId{1}, stats, UnitResources()};
     }
-    catch(const std::out_of_range&)
+    catch (const std::out_of_range&)
     {
         caught = true;
     }
     assert(caught);
-    
+
     caught = false;
     try
     {
-        CombatUnit{
-            CombatUnitId{10},
-            TeamId{1},
-            MakeStats(-1),
-            UnitResources()
-        };
+        CombatUnit{CombatUnitId{10}, TeamId{1}, MakeStats(-1), UnitResources()};
     }
-    catch(const std::invalid_argument&)
+    catch (const std::invalid_argument&)
     {
         caught = true;
     }

@@ -4,8 +4,7 @@
 #include <evermore/combat/CombatState.h>
 
 CombatState::CombatState(std::vector<CombatUnit> units)
-    : units_(std::move(units)), 
-      phase_(CombatPhase::Initializing)
+    : units_(std::move(units)), phase_(CombatPhase::Initializing)
 {
     for (std::size_t i = 0; i < units_.size(); ++i)
     {
@@ -53,7 +52,7 @@ std::span<const CombatUnit> CombatState::GetAllUnits() const
 std::vector<CombatUnitId> CombatState::GetUnitsByTeam(TeamId team) const
 {
     std::vector<CombatUnitId> teamUnitIds;
-    
+
     for (const CombatUnit& unit : units_)
     {
         if (unit.GetTeam() == team)

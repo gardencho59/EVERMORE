@@ -1,20 +1,18 @@
 #include <cassert>
-#include <unordered_map>
 #include <type_traits>
+#include <unordered_map>
 
 #include <evermore/core/StrongId.h>
 
 struct OtherTag {};
 using OtherId = StrongId<OtherTag>;
 
-static_assert(
-    !std::is_convertible_v<OtherId, UnitDefinitionId>
-);
+static_assert(!std::is_convertible_v<OtherId, UnitDefinitionId>);
 
 void TestIdValue()
 {
     const UnitDefinitionId id{10};
-    
+
     assert(id.Value() == 10);
 }
 
